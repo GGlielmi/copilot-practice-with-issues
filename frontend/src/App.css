@@ -1,0 +1,236 @@
+.shell {
+  position: relative;
+  min-height: 100vh;
+  padding: 64px 20px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.ambient {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(224, 231, 255, 0.85), rgba(224, 231, 255, 0));
+  filter: blur(12px);
+  opacity: 0.9;
+}
+
+.ambient-left {
+  top: 32px;
+  left: -120px;
+}
+
+.ambient-right {
+  right: -100px;
+  bottom: -40px;
+}
+
+.frame {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1080px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(320px, 420px);
+  gap: 24px;
+  align-items: start;
+}
+
+.frame-welcome {
+  grid-template-columns: minmax(280px, 1fr) minmax(360px, 520px);
+}
+
+.hero-copy {
+  padding: 64px 18px;
+  display: grid;
+  gap: 12px;
+}
+
+.eyebrow,
+.section-label {
+  margin: 0;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.hero-text,
+.card-heading p,
+.session-row dt,
+.session-row dd,
+.message {
+  margin: 0;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--text-secondary);
+}
+
+.glass-card {
+  padding: 1px;
+  border-radius: 16px;
+  background: linear-gradient(
+    to right bottom,
+    rgba(255, 255, 255, 0.95),
+    rgba(255, 255, 255, 0.5),
+    rgba(203, 213, 225, 0.3)
+  );
+  box-shadow:
+    rgba(0, 0, 0, 0) 0 0 0 0,
+    rgba(0, 0, 0, 0) 0 0 0 0,
+    rgba(0, 0, 0, 0.06) 0 0 0 1px,
+    rgba(0, 0, 0, 0.06) 0 1px 1px -0.5px,
+    rgba(0, 0, 0, 0.06) 0 3px 3px -1.5px,
+    rgba(0, 0, 0, 0.06) 0 6px 6px -3px,
+    rgba(0, 0, 0, 0.06) 0 12px 12px -6px,
+    rgba(0, 0, 0, 0.06) 0 24px 24px -12px;
+}
+
+.card-surface {
+  border-radius: 15px;
+  background: rgba(248, 249, 250, 0.92);
+  backdrop-filter: blur(12px);
+  padding: 18px;
+  display: grid;
+  gap: 20px;
+  min-height: 100%;
+}
+
+.auth-card {
+  align-self: center;
+}
+
+.card-heading {
+  display: grid;
+  gap: 8px;
+}
+
+.auth-form {
+  display: grid;
+  gap: 16px;
+}
+
+.auth-form label {
+  display: grid;
+  gap: 8px;
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.auth-form input {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 12px;
+  font: inherit;
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.95);
+}
+
+.auth-form input:focus-visible,
+.primary-button:focus-visible,
+.secondary-button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.message {
+  min-height: 24px;
+}
+
+.message strong {
+  color: var(--text-primary);
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.primary-button,
+.secondary-button {
+  border: 0;
+  border-radius: 4px;
+  padding: 12px 16px;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    opacity 160ms ease;
+}
+
+.primary-button {
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.secondary-button {
+  background: var(--secondary);
+  color: var(--text-primary);
+}
+
+.primary-button:hover,
+.secondary-button:hover {
+  transform: translateY(-1px);
+}
+
+.primary-button:disabled {
+  cursor: wait;
+  opacity: 0.75;
+  transform: none;
+}
+
+.welcome-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+.session-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.session-row {
+  display: grid;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.session-row dt {
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.session-row dd {
+  margin: 0;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+code {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--neutral);
+  color: var(--text-primary);
+}
+
+@media (max-width: 920px) {
+  .shell {
+    padding: 24px 16px;
+  }
+
+  .frame,
+  .welcome-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    padding: 0;
+  }
+}

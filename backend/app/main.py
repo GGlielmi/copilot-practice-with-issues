@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import (
     ACCESS_TOKEN_EXPIRE_SECONDS,
@@ -10,6 +11,13 @@ from app.schemas import HealthResponse, LoginRequest, RefreshRequest, TokenRespo
 from app.security import create_token, decode_token
 
 app = FastAPI(title="JWT Demo API", version="0.1.0")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?$",
+    allow_credentials=False,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def _build_token_response(username: str) -> TokenResponse:

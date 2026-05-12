@@ -1,12 +1,16 @@
-# JWT Demo API con FastAPI
+# Compliance Platform: backend + frontend de login
 
-Este repositorio incluye una aplicación Web API en Python/FastAPI dentro de la carpeta `/backend` que implementa autenticación JWT con:
+Este repositorio incluye dos aplicaciones integradas:
 
-- Login con usuario `admin` y contraseña `admin123`
-- Token de acceso con expiración de `300` segundos
-- Endpoint para refrescar tokens
-- Gestión de dependencias con Poetry
-- Archivos `Dockerfile` y `docker-compose.yml` para despliegue con Docker
+- `/backend`: API FastAPI con autenticación JWT.
+- `/frontend`: aplicación React para iniciar sesión y acceder a una vista protegida.
+
+## Requisitos
+
+- Python 3.12+
+- Poetry 2.3+
+- Node.js 24+
+- npm 11+
 
 ## Estructura
 
@@ -20,15 +24,20 @@ backend/
 ├── Dockerfile
 ├── docker-compose.yml
 └── pyproject.toml
+frontend/
+├── src/
+│   ├── App.jsx
+│   ├── App.css
+│   ├── index.css
+│   └── main.jsx
+├── index.html
+├── package.json
+└── vite.config.js
 ```
 
-## Requisitos
+## Backend
 
-- Python 3.12+
-- Poetry 2.3.3+
-- Docker y Docker Compose (opcional)
-
-## Ejecución local con Poetry
+### Instalación y ejecución local
 
 ```bash
 cd backend
@@ -40,13 +49,17 @@ set +a
 poetry run uvicorn app.main:app --reload
 ```
 
-La API quedará disponible en `http://127.0.0.1:8000`.
+La API queda disponible en `http://127.0.0.1:8000`.
 
-## Endpoints
+### Endpoints disponibles
 
-### `POST /token`
+#### `GET /`
 
-Genera un token de acceso y un refresh token.
+Devuelve el estado del servicio.
+
+#### `POST /token`
+
+Genera un `access_token` y un `refresh_token` para el usuario configurado.
 
 ```json
 {
@@ -55,17 +68,9 @@ Genera un token de acceso y un refresh token.
 }
 ```
 
-Ejemplo:
+#### `POST /token/refresh`
 
-```bash
-curl -X POST http://127.0.0.1:8000/token \
-  -H "Content-Type: application/json" \
-  -d '{"username":"admin","password":"admin123"}'
-```
-
-### `POST /token/refresh`
-
-Refresca el token a partir de un `refresh_token`.
+Refresca el token de acceso usando un `refresh_token` válido.
 
 ```json
 {
@@ -73,25 +78,47 @@ Refresca el token a partir de un `refresh_token`.
 }
 ```
 
+## Frontend
+
+### Características
+
+- Login con React consumiendo `POST /token`
+- Almacenamiento de sesión en `sessionStorage`
+- Ruta protegida `/welcome`
+- Redirección automática al login si no existe sesión
+- Estilos alineados al documento `Compliance-Platform-DESIGN.md`
+
+### Instalación y ejecución local
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+La aplicación queda disponible en `http://127.0.0.1:5173`.
+
+### Configuración opcional
+
+El frontend consume el backend en `http://127.0.0.1:8000` por defecto. Si necesitás otro origen, definí la variable `VITE_API_URL` antes de ejecutar Vite.
+
 Ejemplo:
 
 ```bash
-curl -X POST http://127.0.0.1:8000/token/refresh \
-  -H "Content-Type: application/json" \
-  -d '{"refresh_token":"<refresh_token>"}'
+cd frontend
+VITE_API_URL=http://127.0.0.1:8000 npm run dev
 ```
 
-## Ejecución con Docker
+## Flujo de uso
 
-```bash
-cd backend
-cp .env.example .env
-docker compose up --build
-```
+1. Iniciar el backend.
+2. Iniciar el frontend.
+3. Abrir `http://127.0.0.1:5173`.
+4. Ingresar con `admin` / `admin123`.
+5. La aplicación guarda el token en `sessionStorage` y redirige a `/welcome`.
+6. Si se intenta abrir `/welcome` sin sesión, la aplicación vuelve al login.
 
-La API quedará expuesta en `http://127.0.0.1:8000`.
-
-## Variables de entorno
+## Variables de entorno del backend
 
 - `JWT_SECRET_KEY`: clave secreta para firmar JWT
 - `AUTH_USERNAME`: usuario permitido para el login (`admin`)
@@ -99,9 +126,15 @@ La API quedará expuesta en `http://127.0.0.1:8000`.
 - `ACCESS_TOKEN_EXPIRE_SECONDS`: duración del access token (por defecto `300`)
 - `REFRESH_TOKEN_EXPIRE_SECONDS`: duración del refresh token (por defecto `900`)
 
-## Documentación automática
+## Docker
 
-FastAPI expone la documentación Swagger en:
+```bash
+cd backend
+cp .env.example .env
+docker compose up --build
+```
+
+## Documentación automática del backend
 
 - `http://127.0.0.1:8000/docs`
 - `http://127.0.0.1:8000/redoc`
