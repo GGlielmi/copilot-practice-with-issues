@@ -2,9 +2,7 @@ services:
   backend:
     build:
       context: .
-    environment:
-      JWT_SECRET_KEY: super-secret-jwt-key
-      ACCESS_TOKEN_EXPIRE_SECONDS: 300
-      REFRESH_TOKEN_EXPIRE_SECONDS: 900
+    env_file:
+      - .env
     ports:
       - "8000:8000"

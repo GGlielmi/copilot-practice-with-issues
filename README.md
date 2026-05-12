@@ -32,7 +32,11 @@ backend/
 
 ```bash
 cd backend
+cp .env.example .env
 poetry install --no-root
+set -a
+source .env
+set +a
 poetry run uvicorn app.main:app --reload
 ```
 
@@ -81,6 +85,7 @@ curl -X POST http://127.0.0.1:8000/token/refresh \
 
 ```bash
 cd backend
+cp .env.example .env
 docker compose up --build
 ```
 
@@ -89,6 +94,8 @@ La API quedará expuesta en `http://127.0.0.1:8000`.
 ## Variables de entorno
 
 - `JWT_SECRET_KEY`: clave secreta para firmar JWT
+- `AUTH_USERNAME`: usuario permitido para el login (`admin`)
+- `AUTH_PASSWORD`: contraseña permitida para el login (`admin123`)
 - `ACCESS_TOKEN_EXPIRE_SECONDS`: duración del access token (por defecto `300`)
 - `REFRESH_TOKEN_EXPIRE_SECONDS`: duración del refresh token (por defecto `900`)
 
