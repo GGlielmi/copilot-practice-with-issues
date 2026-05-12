@@ -37,6 +37,10 @@
   align-items: start;
 }
 
+.frame-welcome {
+  grid-template-columns: minmax(280px, 1fr) minmax(360px, 520px);
+}
+
 .hero-copy {
   padding: 64px 18px;
   display: grid;
@@ -179,7 +183,7 @@
 
 .welcome-grid {
   display: grid;
-  grid-template-columns: minmax(0, 1.4fr) minmax(260px, 0.8fr);
+  grid-template-columns: 1fr;
   gap: 24px;
 }
 

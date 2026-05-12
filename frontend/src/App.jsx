@@ -139,7 +139,7 @@ function App() {
     <main className="shell">
       <div className="ambient ambient-left" aria-hidden="true" />
       <div className="ambient ambient-right" aria-hidden="true" />
-      <section className="frame">
+      <section className={`frame ${path === WELCOME_PATH ? 'frame-welcome' : ''}`}>
         <header className="hero-copy">
           <p className="eyebrow">Compliance Platform</p>
           <h1>{path === LOGIN_PATH ? 'Iniciar sesión' : 'Bienvenido'}</h1>
