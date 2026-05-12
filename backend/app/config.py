@@ -1,0 +1,9 @@
+from os import getenv
+
+JWT_SECRET_KEY = getenv("JWT_SECRET_KEY", "development-secret-change-me")
+JWT_ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_SECONDS = int(getenv("ACCESS_TOKEN_EXPIRE_SECONDS", "300"))
+REFRESH_TOKEN_EXPIRE_SECONDS = int(getenv("REFRESH_TOKEN_EXPIRE_SECONDS", "900"))
+
+VALID_USERNAME = "admin"
+VALID_PASSWORD = "admin123"
